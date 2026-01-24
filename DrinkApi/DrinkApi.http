@@ -1,0 +1,6 @@
+@DrinkApi_HostAddress = http://localhost:5211
+
+GET {{DrinkApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
