@@ -36,6 +36,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<DrinkDbContextService>(); // tell Dependency Injection (DI) container create DrinkDbContextService
 builder.Services.AddScoped<IDrinkService, DrinkService>();
 
+
 //CORS: cross origin resource sharing
 //Backenden blockerar anrop från andra domäner
 builder.Services.AddCors(options =>
@@ -81,7 +82,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseCors("AllowAll");
-//app.UseCors("FontenPolicy");
+app.UseCors("FontenPolicy");
 
 
 
