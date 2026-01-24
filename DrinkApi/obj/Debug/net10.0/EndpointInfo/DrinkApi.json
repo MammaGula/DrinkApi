@@ -138,6 +138,18 @@
         }
       }
     },
+    "/api/Drinks/test-error": {
+      "get": {
+        "tags": [
+          "Drinks"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -181,21 +193,31 @@
   "components": {
     "schemas": {
       "DrinkCreateDto": {
+        "required": [
+          "name",
+          "type"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
           },
           "type": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 30,
+            "minLength": 0,
+            "type": "string"
           },
           "sweetness": {
+            "maximum": 10,
+            "minimum": 0,
             "type": "integer",
             "format": "int32"
           },
           "price": {
+            "maximum": 9999,
+            "minimum": 1,
             "type": "number",
             "format": "double"
           }
@@ -203,6 +225,9 @@
         "additionalProperties": false
       },
       "DrinkDeleteDto": {
+        "required": [
+          "id"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -210,6 +235,8 @@
             "format": "int32"
           },
           "reason": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -217,21 +244,31 @@
         "additionalProperties": false
       },
       "DrinkUpdateDto": {
+        "required": [
+          "name",
+          "type"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
           },
           "type": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 30,
+            "minLength": 0,
+            "type": "string"
           },
           "sweetness": {
+            "maximum": 10,
+            "minimum": 0,
             "type": "integer",
             "format": "int32"
           },
           "price": {
+            "maximum": 9999,
+            "minimum": 1,
             "type": "number",
             "format": "double"
           }

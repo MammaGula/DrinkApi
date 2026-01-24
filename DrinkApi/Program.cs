@@ -1,7 +1,9 @@
 using DrinkApi.Data;
+using DrinkApi.Middleware;
 using DrinkApi.Services;
 using DrinkApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -76,6 +78,13 @@ if (app.Environment.IsDevelopment())
 
 //app.UseCors("AllowAll");
 //app.UseCors("FontenPolicy");
+
+
+
+
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
 
 app.UseHttpsRedirection();
 

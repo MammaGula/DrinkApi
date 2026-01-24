@@ -15,11 +15,15 @@ public class DrinksController : ControllerBase
         _service = service;
     }
 
+
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _service.GetAll());
     }
+
+
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(int id)
@@ -29,12 +33,16 @@ public class DrinksController : ControllerBase
         return Ok(drink);
     }
 
+
+
     [HttpPost]
     public async Task<IActionResult> Create(DrinkCreateDto dto)
     {
         var created = await _service.Create(dto);
         return Created("", created);
     }
+
+
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, DrinkUpdateDto dto)
@@ -44,6 +52,8 @@ public class DrinksController : ControllerBase
         return NoContent();
     }
 
+
+
     [HttpDelete]
     public async Task<IActionResult> Delete(DrinkDeleteDto dto)
     {
@@ -51,4 +61,15 @@ public class DrinksController : ControllerBase
         if (!ok) return NotFound();
         return NoContent();
     }
+
+
+    // For testing error handling middleware only
+    //[HttpGet("test-error")]
+    //public IActionResult TestError()
+    //{
+    //    throw new Exception("This is a test error");
+    //}
+
+
+
 }

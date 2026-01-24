@@ -14,6 +14,7 @@ public class DrinkService : IDrinkService
         _db = db;
     }
 
+
     public async Task<List<DrinkReadDto>> GetAll()
     {
         var drinks = await _db.GetAll();
@@ -44,6 +45,9 @@ public class DrinkService : IDrinkService
 
     public async Task<DrinkReadDto> Create(DrinkCreateDto dto)
     {
+        if (dto == null)
+            throw new ArgumentNullException(nameof(dto));
+
         var drink = new Drink
         {
             Name = dto.Name,
@@ -64,10 +68,13 @@ public class DrinkService : IDrinkService
         };
     }
 
+
+
     public async Task<bool> Update(int id, DrinkUpdateDto dto)
     {
         var drink = await _db.GetById(id);
-        if (drink == null) return false;
+        if (drink == null)
+            throw new KeyNotFoundException($"Drink with ID {id} not found.");
 
         drink.Name = dto.Name;
         drink.Type = dto.Type;
@@ -77,8 +84,18 @@ public class DrinkService : IDrinkService
         return await _db.Update(drink);
     }
 
+
+
     public async Task<bool> Delete(DrinkDeleteDto dto)
     {
+        if (dto.Id <= 0)
+            throw new ArgumentException("Invalid ID.");
+
         return await _db.Delete(dto.Id);
     }
+
 }
+
+
+
+

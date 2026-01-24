@@ -160,3 +160,4 @@ C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\refint\Drink
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.pdb
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.genruntimeconfig.cache
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\ref\DrinkApi.dll
+C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.sourcelink.json
