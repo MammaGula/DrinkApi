@@ -138,18 +138,6 @@
         }
       }
     },
-    "/api/Drinks/test-error": {
-      "get": {
-        "tags": [
-          "Drinks"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/WeatherForecast": {
       "get": {
         "tags": [

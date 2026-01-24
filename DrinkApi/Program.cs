@@ -6,11 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 
 
+// Register the WebApplication builder, Services and Middleware
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
 builder.Services.AddControllers();
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
 
 //// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 //builder.Services.AddOpenApi();

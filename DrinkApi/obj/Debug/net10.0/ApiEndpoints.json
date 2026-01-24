@@ -79,16 +79,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "DrinkApi.Controllers.DrinksController",
-    "Method": "TestError",
-    "RelativePath": "api/Drinks/test-error",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "DrinkApi.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",
