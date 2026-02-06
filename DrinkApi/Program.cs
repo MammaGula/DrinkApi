@@ -19,9 +19,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Repository Layer
 builder.Services.AddScoped<IDrinkRepository, DrinkRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 // Service Layer
 builder.Services.AddScoped<IDrinkService, DrinkService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 // CORS: Cross Origin Resource Sharing
 builder.Services.AddCors(options =>

@@ -9,25 +9,24 @@ namespace DrinkApi.Controllers;
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
 {
-    private readonly IDrinkService _drinkService;
+    private readonly IOrderService _orderService;
 
-    public OrdersController(IDrinkService drinkService)
+    public OrdersController(IOrderService orderService)
     {
-        _drinkService = drinkService;
+        _orderService = orderService;
     }
 
-    private static readonly List<OrderResponseDto> _orders = new();
-
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(_orders);
+        var orders = await _orderService.GetAll();
+        return Ok(orders);
     }
 
     [HttpGet("{id:guid}")]
-    public IActionResult GetOne(Guid id)
+    public async Task<IActionResult> GetOne(Guid id)
     {
-        var order = _orders.FirstOrDefault(o => o.Id == id);
+        var order = await _orderService.GetById(id);
         if (order == null) return NotFound();
         return Ok(order);
     }
@@ -35,31 +34,11 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] OrderRequestDto order)
     {
-        // Find drink by name
-        var drinks = await _drinkService.GetAll();
-        var drink = drinks.FirstOrDefault(d =>
-            d.Name.Equals(order.DrinkName, StringComparison.OrdinalIgnoreCase));
-
-        if (drink == null)
-        {
+        var created = await _orderService.Create(order);
+        if (created == null)
             return NotFound(new { message = $"Drink '{order.DrinkName}' not found" });
-        }
 
-        // Create and store the order
-        var newOrder = new OrderResponseDto
-        {
-            Id = Guid.NewGuid(),
-            DrinkName = drink.Name,
-            Quantity = order.Quantity,
-            UnitPrice = drink.Price,
-            TotalPrice = drink.Price * order.Quantity,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        _orders.Add(newOrder);
-
-        // Return 201 Created with location header
-        return CreatedAtAction(nameof(GetOne), new { id = newOrder.Id }, newOrder);
+        return CreatedAtAction(nameof(GetOne), new { id = created.Id }, created);
     }
 }
 

@@ -8,6 +8,7 @@ namespace DrinkApi.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Drink> Drinks { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -16,6 +17,14 @@ namespace DrinkApi.Data
             modelBuilder.Entity<Drink>()
                 .Property(d => d.Price)
                 .HasPrecision(10, 2); // 10 digits total, 2 decimals
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.UnitPrice)
+                .HasPrecision(10, 2);
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalPrice)
+                .HasPrecision(10, 2);
 
             modelBuilder.Entity<Drink>().HasData(
                 new Drink { Id = 1, Name = "Latte", Type = "Coffee", Sweetness = 5, Price = 39.00m },
