@@ -1,0 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace DrinkApi.DTOs;
+
+public class OrderCreateDto
+{
+    [Required]
+    [StringLength(100, ErrorMessage = "Drink name must not exceed 100 characters")]
+    public string DrinkName { get; set; } = string.Empty;
+    
+    [Required]
+    [Range(1, 100, ErrorMessage = "Quantity must be between 1 and 100")]
+    public int Quantity { get; set; }
+}
