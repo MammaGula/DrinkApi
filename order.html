@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Place Order - The Cozy Corner</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- link to CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="bg-light">
+    <div class="container py-5 container-background">
+      <h1 class="text-center mb-4">The Cozy Corner</h1>
+
+      <!-- Navigation Links -->
+      <div class="text-center mb-4">
+        <a href="about.html" class="btn btn-outline-light me-2">About</a>
+        <a href="index.html" class="btn btn-outline-light me-2">Drink List</a>
+        <a href="order.html" class="btn btn-outline-light me-2">Place Order</a>
+        <a href="admin.html" class="btn btn-outline-light">Admin</a>
+      </div>
+
+      <!-- Order Form -->
+      <div
+        class="card p-4 shadow-sm mx-auto"
+        style="max-width: 600px; background-color: rgba(5, 39, 13, 0.6)"
+      >
+        <h3 class="mb-3">Place an Order</h3>
+
+        <div class="mb-3">
+          <label class="form-label">Drink Name</label>
+          <input
+            type="text"
+            id="orderName"
+            class="form-control"
+            placeholder="e.g. Latte"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Quantity</label>
+          <input
+            type="number"
+            id="orderQuantity"
+            class="form-control"
+            value="1"
+            min="1"
+          />
+        </div>
+
+        <button class="btn btn-success" onclick="sendOrder()">
+          Submit Order
+        </button>
+
+        <p id="orderStatus" class="mt-3"></p>
+      </div>
+    </div>
+
+    <script src="order.js"></script>
+  </body>
+</html>
