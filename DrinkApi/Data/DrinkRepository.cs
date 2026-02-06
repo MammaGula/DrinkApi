@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using DrinkApi.Models;
 
 namespace DrinkApi.Data;
 
-public class DrinkDbContextService
+public class DrinkRepository : IDrinkRepository
 {
     private readonly AppDbContext _context;
 
-    public DrinkDbContextService(AppDbContext context)
+    public DrinkRepository(AppDbContext context)
     {
         _context = context;
     }
@@ -21,12 +21,13 @@ public class DrinkDbContextService
     public async Task Add(Drink drink)
     {
         _context.Drinks.Add(drink);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(); // EF Core will generate Id to drink
     }
 
     public async Task<bool> Update(Drink drink)
     {
-        if (!await _context.Drinks.AnyAsync(d => d.Id == drink.Id))
+        var exists = await _context.Drinks.AnyAsync(d => d.Id == drink.Id);
+        if (!exists)
             return false;
 
         _context.Drinks.Update(drink);

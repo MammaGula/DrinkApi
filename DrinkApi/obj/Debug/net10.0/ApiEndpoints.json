@@ -27,22 +27,6 @@
   },
   {
     "ContainingType": "DrinkApi.Controllers.DrinksController",
-    "Method": "Delete",
-    "RelativePath": "api/Drinks",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "DrinkApi.DTOs.DrinkDeleteDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "DrinkApi.Controllers.DrinksController",
     "Method": "GetOne",
     "RelativePath": "api/Drinks/{id}",
     "HttpMethod": "GET",
@@ -73,6 +57,22 @@
       {
         "Name": "dto",
         "Type": "DrinkApi.DTOs.DrinkUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DrinkApi.Controllers.DrinksController",
+    "Method": "Delete",
+    "RelativePath": "api/Drinks/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

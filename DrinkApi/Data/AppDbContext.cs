@@ -5,11 +5,9 @@ namespace DrinkApi.Data
 {
     public class AppDbContext: DbContext
     {
-
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Drink> Drinks { get; set; } = null!;
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,8 +45,5 @@ namespace DrinkApi.Data
                 new Drink { Id = 25, Name = "Water", Type = "Water", Sweetness = 0, Price = 15.00m }
             );
         }
-
-
-
     }
 }

@@ -6,10 +6,12 @@ namespace DrinkApi.Middleware;
 public class ErrorHandlingMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly IWebHostEnvironment _env;
 
-    public ErrorHandlingMiddleware(RequestDelegate next)
+    public ErrorHandlingMiddleware(RequestDelegate next, IWebHostEnvironment env)
     {
         _next = next;
+        _env = env;
     }
 
     public async Task Invoke(HttpContext context)
@@ -26,7 +28,8 @@ public class ErrorHandlingMiddleware
             var error = new
             {
                 error = "An unexpected error occurred.",
-                details = ex.Message
+                details = _env.IsDevelopment() ? ex.Message : null,  // ← Show only Dev
+                stackTrace = _env.IsDevelopment() ? ex.StackTrace : null
             };
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(error));

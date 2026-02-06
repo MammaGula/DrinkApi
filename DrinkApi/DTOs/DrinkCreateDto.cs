@@ -15,7 +15,7 @@ namespace DrinkApi.DTOs
         [Range(0, 10)]
         public int Sweetness { get; set; }
 
-        [Range(1, 9999)]
+        [Range(0.01, 9999)]
         public decimal Price { get; set; }
     }
 }

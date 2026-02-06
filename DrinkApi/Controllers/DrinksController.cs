@@ -38,8 +38,17 @@ public class DrinksController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(DrinkCreateDto dto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
         var created = await _service.Create(dto);
-        return Created("", created);
+
+        // Create HTTP 201, Created response
+        return CreatedAtAction(
+            nameof(GetOne),           // Name of the action to generate the URL for
+            new { id = created.Id },  // route values
+            created                    // response body
+        );
     }
 
 
@@ -47,6 +56,9 @@ public class DrinksController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, DrinkUpdateDto dto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+            
         var ok = await _service.Update(id, dto);
         if (!ok) return NotFound();
         return NoContent();
@@ -54,10 +66,10 @@ public class DrinksController : ControllerBase
 
 
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(DrinkDeleteDto dto)
+    [HttpDelete("{id:int:min(1)}")] // with constraint to ensure id is a positive integer   
+    public async Task<IActionResult> Delete(int id)
     {
-        var ok = await _service.Delete(dto);
+        var ok = await _service.Delete(id);
         if (!ok) return NotFound();
         return NoContent();
     }
