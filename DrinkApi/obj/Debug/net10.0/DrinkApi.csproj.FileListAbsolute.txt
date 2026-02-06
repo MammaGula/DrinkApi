@@ -153,7 +153,6 @@ C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\staticwebass
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\staticwebassets.development.json
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.csproj.Up2Date
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.dll
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\refint\DrinkApi.dll
@@ -161,3 +160,4 @@ C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.pdb
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.genruntimeconfig.cache
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\ref\DrinkApi.dll
 C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\DrinkApi.sourcelink.json
+C:\Users\supap\Desktop\DrinkApi\DrinkApi\DrinkApi\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

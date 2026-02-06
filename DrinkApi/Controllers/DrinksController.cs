@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DrinkApi.DTOs;
+﻿using DrinkApi.DTOs;
+using DrinkApi.Models;
 using DrinkApi.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DrinkApi.Controllers;
 
@@ -85,3 +88,21 @@ public class DrinksController : ControllerBase
 
 
 }
+
+
+
+
+
+//DrinksController — Manages the drink menu(CRUD)
+
+
+//Endpoints:
+//GET /api/Drinks — Retrieves all drink entries
+//GET /api/Drinks/{id} — Retrieves a single drink
+//POST /api/Drinks — Creates a new drink(receives DrinkCreateDto)
+//PUT / api / Drinks /{ id} — Updates a drink (receives DrinkUpdateDto)
+//DELETE /api/Drinks/{id} — Deletes a drink
+
+
+//Called by: Admin page(admin.js) — Adds / edits / deletes / loads menu items
+//Purpose: Allows the admin to manage menu data, provides backend validation and data storage.

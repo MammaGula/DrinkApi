@@ -2,6 +2,7 @@
 
 namespace DrinkApi.DTOs
 {
+    // Use in Admin.js: Admin create a new drink
     public class DrinkCreateDto
     {
         [Required]

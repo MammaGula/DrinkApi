@@ -26,12 +26,10 @@ builder.Services.AddScoped<IDrinkService, DrinkService>();
 // CORS: Cross Origin Resource Sharing
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
 });
 
 var app = builder.Build();
@@ -46,11 +44,11 @@ if (app.Environment.IsDevelopment())
 // Error handling
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
-// HTTPS Redirection
-app.UseHttpsRedirection();
+// HTTPS Redirection - Disabled for development
+// app.UseHttpsRedirection();
 
 // CORS
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAll");
 
 // Authentication/Authorization
 app.UseAuthorization();

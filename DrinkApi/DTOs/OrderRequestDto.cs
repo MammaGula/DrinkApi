@@ -1,7 +1,10 @@
+using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DrinkApi.DTOs
 {
+    // Use in orders.js to send order creation requests
+    // Define the information the customer submits when placing an order.
     // Short request DTO: frontend -> backend
     public class OrderRequestDto
     {
