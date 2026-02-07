@@ -32,6 +32,16 @@
       >
         <h3 class="mb-3">Admin Panel</h3>
 
+        <!-- Manage Menu Section -->
+        <div class="mb-4">
+          <h4 class="text-light">Manage Menu</h4>
+          <button class="btn btn-primary" onclick="loadMenu()">
+            Load Menu
+          </button>
+          <div id="menuList" class="mt-3"></div>
+          <p id="menuStatus" class="mt-2"></p>
+        </div>
+
         <!-- View Orders Section -->
         <div class="mb-4">
           <h4 class="text-light">View Orders</h4>
@@ -54,6 +64,29 @@
               id="drinkName"
               class="form-control"
               placeholder="e.g. Cappuccino"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Type</label>
+            <input
+              type="text"
+              id="drinkType"
+              class="form-control"
+              placeholder="e.g. Coffee"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Sweetness (0-10)</label>
+            <input
+              type="number"
+              id="drinkSweetness"
+              class="form-control"
+              placeholder="e.g. 3"
+              min="0"
+              max="10"
+              step="1"
             />
           </div>
 
