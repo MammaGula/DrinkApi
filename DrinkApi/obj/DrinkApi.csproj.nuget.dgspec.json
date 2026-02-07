@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\supap\\Desktop\\DrinkApi\\DrinkApi\\DrinkApi\\DrinkApi.csproj": {}
+    "C:\\Users\\supap\\Desktop\\DrinkApi\\Drink-Frontend\\DrinkApi\\DrinkApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\supap\\Desktop\\DrinkApi\\DrinkApi\\DrinkApi\\DrinkApi.csproj": {
+    "C:\\Users\\supap\\Desktop\\DrinkApi\\Drink-Frontend\\DrinkApi\\DrinkApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\supap\\Desktop\\DrinkApi\\DrinkApi\\DrinkApi\\DrinkApi.csproj",
+        "projectUniqueName": "C:\\Users\\supap\\Desktop\\DrinkApi\\Drink-Frontend\\DrinkApi\\DrinkApi.csproj",
         "projectName": "DrinkApi",
-        "projectPath": "C:\\Users\\supap\\Desktop\\DrinkApi\\DrinkApi\\DrinkApi\\DrinkApi.csproj",
+        "projectPath": "C:\\Users\\supap\\Desktop\\DrinkApi\\Drink-Frontend\\DrinkApi\\DrinkApi.csproj",
         "packagesPath": "C:\\Users\\supap\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\supap\\Desktop\\DrinkApi\\DrinkApi\\DrinkApi\\obj\\",
+        "outputPath": "C:\\Users\\supap\\Desktop\\DrinkApi\\Drink-Frontend\\DrinkApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
