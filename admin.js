@@ -128,13 +128,28 @@ async function loadOrders() {
     let html =
       '<div class="table-responsive"><table class="table table-dark table-striped">';
     html +=
-      "<thead><tr><th>ID</th><th>Drink Name</th><th>Quantity</th></tr></thead><tbody>";
+      "<thead><tr><th>ID</th><th>Drink Name</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th><th>Created At</th></tr></thead><tbody>";
 
     orders.forEach((order) => {
+      const unitPrice =
+        typeof order.unitPrice === "number"
+          ? order.unitPrice.toFixed(2) + " kr"
+          : "-";
+      const totalPrice =
+        typeof order.totalPrice === "number"
+          ? order.totalPrice.toFixed(2) + " kr"
+          : "-";
+      const createdAt = order.createdAt
+        ? new Date(order.createdAt).toLocaleString()
+        : "";
+
       html += `<tr>
         <td>${order.id}</td>
         <td>${order.drinkName}</td>
         <td>${order.quantity}</td>
+        <td>${unitPrice}</td>
+        <td>${totalPrice}</td>
+        <td>${createdAt}</td>
       </tr>`;
     });
 
@@ -282,3 +297,23 @@ async function addDrink() {
     statusElement.className = "mt-3 text-danger";
   }
 }
+
+// Orders polling control
+let ordersPollingId = null;
+function startOrdersPolling(intervalMs = 5000) {
+  if (ordersPollingId) return;
+  ordersPollingId = setInterval(loadOrders, intervalMs);
+}
+
+function stopOrdersPolling() {
+  if (!ordersPollingId) return;
+  clearInterval(ordersPollingId);
+  ordersPollingId = null;
+}
+
+// Start loading data and polling when DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  loadMenu();
+  loadOrders();
+  startOrdersPolling(5000);
+});
