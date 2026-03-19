@@ -2,12 +2,17 @@ using DrinkApi.Data;
 using DrinkApi.Middleware;
 using DrinkApi.Services;
 using DrinkApi.Services.Interfaces;
+using DrinkApi.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register services via extensions
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 // Add services to the container
 builder.Services.AddControllers();
@@ -59,13 +64,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// Repository Layer
-builder.Services.AddScoped<DrinkApi.Data.Interfaces.IDrinkRepository, DrinkApi.Data.DrinkRepository>();
-builder.Services.AddScoped<DrinkApi.Data.Interfaces.IOrderRepository, DrinkApi.Data.OrderRepository>();
-
-// Service Layer
-builder.Services.AddScoped<DrinkApi.Services.Interfaces.IDrinkService, DrinkApi.Services.DrinkService>();
-builder.Services.AddScoped<DrinkApi.Services.IOrderService, DrinkApi.Services.OrderService>();
+// DI registrations moved to ServiceCollectionExtensions.AddInfrastructure/AddApplicationServices
 
 // CORS: Cross Origin Resource Sharing
 // In development allow the frontend origin and credentials so cookie auth works from SPA

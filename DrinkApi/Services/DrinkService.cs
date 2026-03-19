@@ -5,7 +5,7 @@ using DrinkApi.Services.Interfaces;
 
 namespace DrinkApi.Services;
 
-public class DrinkService : DrinkApi.Services.Interfaces.IDrinkService
+public class DrinkService : IDrinkService
 {
     private readonly IDrinkRepository _repository;
 

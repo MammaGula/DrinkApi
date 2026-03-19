@@ -1,5 +1,5 @@
 ﻿using DrinkApi.DTOs;
-using DrinkApi.Services;
+using DrinkApi.Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

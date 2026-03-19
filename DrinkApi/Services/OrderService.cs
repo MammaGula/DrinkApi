@@ -5,12 +5,12 @@ using DrinkApi.Services.Interfaces;
 
 namespace DrinkApi.Services;
 
-public class OrderService : DrinkApi.Services.IOrderService
+public class OrderService : IOrderService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly DrinkApi.Services.Interfaces.IDrinkService _drinkService;
+    private readonly IDrinkService _drinkService;
 
-    public OrderService(IOrderRepository orderRepository, DrinkApi.Services.Interfaces.IDrinkService drinkService)
+    public OrderService(IOrderRepository orderRepository, IDrinkService drinkService)
     {
         _orderRepository = orderRepository;
         _drinkService = drinkService;

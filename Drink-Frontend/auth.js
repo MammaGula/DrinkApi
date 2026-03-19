@@ -88,11 +88,18 @@ function fetchWithAuth(input, init = {}) {
 function initAuthNav() {
   const authLink = document.getElementById("authLink");
   if (!authLink) return;
+  // Avoid adding a duplicate Admin link if one already exists in the static nav
+  const adminExists = Boolean(document.querySelector('a[href="admin.html"]'));
 
   if (isAuthenticated()) {
-    // Show Admin link only for users with Admin role
     if (isAdmin()) {
-      authLink.innerHTML = `<a href="admin.html" class="btn btn-outline-light me-2">Admin</a><button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
+      if (adminExists) {
+        // Static Admin link already present; only add Logout button here
+        authLink.innerHTML = `<button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
+      } else {
+        // No static Admin link; inject Admin + Logout
+        authLink.innerHTML = `<a href="admin.html" class="btn btn-outline-light me-2">Admin</a><button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
+      }
     } else {
       authLink.innerHTML = `<button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
     }
