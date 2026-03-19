@@ -1,6 +1,7 @@
 ﻿using DrinkApi.DTOs;
 using DrinkApi.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DrinkApi.Controllers;
@@ -17,6 +18,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll()
     {
         var orders = await _orderService.GetAll();
@@ -24,6 +26,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetOne(Guid id)
     {
         var order = await _orderService.GetById(id);
@@ -32,6 +35,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> CreateOrder([FromBody] OrderRequestDto order)
     {
         var created = await _orderService.Create(order);

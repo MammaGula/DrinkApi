@@ -2,6 +2,7 @@
 using DrinkApi.Models;
 using DrinkApi.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -39,6 +40,7 @@ public class DrinksController : ControllerBase
 
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(DrinkCreateDto dto)
     {
         if (!ModelState.IsValid)
@@ -57,6 +59,7 @@ public class DrinksController : ControllerBase
 
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id, DrinkUpdateDto dto)
     {
         if (!ModelState.IsValid)
@@ -70,6 +73,7 @@ public class DrinksController : ControllerBase
 
 
     [HttpDelete("{id:int:min(1)}")] // with constraint to ensure id is a positive integer   
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var ok = await _service.Delete(id);

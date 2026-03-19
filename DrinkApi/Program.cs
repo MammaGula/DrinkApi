@@ -47,10 +47,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Seed default roles and users (run before app starts)
-IdentitySeeder.SeedAsync(app.Services, builder.Configuration)
-    .GetAwaiter()
-    .GetResult();
+// Seed default roles and users (opt-in; recommended only for Development)
+var seedEnabled = builder.Configuration.GetValue<bool>("SeedData:Enabled");
+if (app.Environment.IsDevelopment() && seedEnabled)
+{
+    IdentitySeeder.SeedAsync(app.Services, builder.Configuration)
+        .GetAwaiter()
+        .GetResult();
+}
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
