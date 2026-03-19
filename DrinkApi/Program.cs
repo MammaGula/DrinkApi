@@ -47,37 +47,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Seed default roles and admin user (run before app starts)
-async Task SeedDataAsync(IServiceProvider services)
-{
-    using var scope = services.CreateScope();
-    var roleManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.RoleManager<Microsoft.AspNetCore.Identity.IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<Microsoft.AspNetCore.Identity.IdentityUser>>();
-
-    string[] roles = new[] { "Admin", "User" };
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-            await roleManager.CreateAsync(new Microsoft.AspNetCore.Identity.IdentityRole(role));
-    }
-
-    // Default admin - change password in production
-    var adminEmail = builder.Configuration["DefaultAdmin:Email"] ?? "admin@example.com";
-    var adminPassword = builder.Configuration["DefaultAdmin:Password"] ?? "Admin@123";
-
-    var admin = await userManager.FindByEmailAsync(adminEmail);
-    if (admin == null)
-    {
-        admin = new Microsoft.AspNetCore.Identity.IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
-        var result = await userManager.CreateAsync(admin, adminPassword);
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(admin, "Admin");
-        }
-    }
-}
-
-SeedDataAsync(app.Services).GetAwaiter().GetResult();
+// Seed default roles and users (run before app starts)
+IdentitySeeder.SeedAsync(app.Services, builder.Configuration)
+    .GetAwaiter()
+    .GetResult();
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
