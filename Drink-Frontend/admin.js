@@ -114,7 +114,9 @@ async function loadOrders() {
     const response = await fetchWithAuth(ordersApiUrl);
 
     if (!response.ok) {
-      ordersList.innerHTML = '<p class="text-danger">Error loading orders.</p>';
+      const text = await response.text();
+      console.error('Load orders failed:', response.status, text);
+      ordersList.innerHTML = `<p class="text-danger">Error loading orders: ${text || response.statusText}</p>`;
       return;
     }
 
@@ -276,6 +278,10 @@ async function addDrink() {
       body: JSON.stringify(drink),
     });
 
+    const text = await response.text();
+    let data = null;
+    try { data = JSON.parse(text); } catch {}
+
     if (response.ok) {
       statusElement.textContent = "Drink added successfully!";
       statusElement.className = "mt-3 text-success";
@@ -288,7 +294,9 @@ async function addDrink() {
 
       await loadMenu();
     } else {
-      statusElement.textContent = "Error adding drink.";
+      console.error('Add drink failed:', response.status, text);
+      const message = data?.message ?? data?.error ?? text ?? response.statusText;
+      statusElement.textContent = `Error adding drink: ${message}`;
       statusElement.className = "mt-3 text-danger";
     }
   } catch (error) {
@@ -316,6 +324,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Redirect to login if there is no auth token
   if (typeof ensureAuthenticated === "function") {
     ensureAuthenticated();
+  }
+
+  // Ensure user is Admin; otherwise redirect away
+  if (typeof ensureAdmin === "function") {
+    ensureAdmin();
   }
 
   loadMenu();

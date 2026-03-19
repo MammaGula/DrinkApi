@@ -1,11 +1,57 @@
 const authStorageKey = "cozyCornerAuthToken";
 
-// TODO: Update this URL to match your backend login endpoint.
-// If your backend uses ASP.NET Identity with a JWT endpoint, point it here.
-const loginApiUrl = "http://localhost:5211/api/Auth/login";
+// Backend login endpoint (JWT)
+const loginApiUrl = "http://localhost:5211/api/auth/login";
 
 function getAuthToken() {
   return localStorage.getItem(authStorageKey);
+}
+
+function parseJwt(token) {
+  if (typeof token !== "string") return null;
+
+  const splitToken = token.split(".");
+  if (splitToken.length !== 3) return null;
+
+  const payloadBase64Url = splitToken[1];
+  const base64 = payloadBase64Url.replace(/-/g, "+").replace(/_/g, "/");
+
+  try {
+    // `atob` decodes base64 to bytes in a string.
+    const bytes = atob(base64);
+
+    // Convert bytes string to UTF-8 text safely via TextDecoder.
+    const utf8 = new TextDecoder("utf-8").decode(
+      Uint8Array.from(bytes, (c) => c.charCodeAt(0)),
+    );
+
+    return JSON.parse(utf8);
+  } catch (error) {
+    return null;
+  }
+}
+
+function isAdmin() {
+  const token = getAuthToken();
+  if (!token) return false;
+  const payload = parseJwt(token);
+  if (!payload) return false;
+
+  // role claim can be 'role' (string), an array, or 'roles'
+  const roleClaim =
+    payload.role ??
+    payload.roles ??
+    payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  if (!roleClaim) return false;
+  if (Array.isArray(roleClaim)) return roleClaim.includes("Admin");
+  return roleClaim === "Admin";
+}
+
+function ensureAdmin(redirectTo = "index.html") {
+  // If token indicates admin, allow. Otherwise redirect away from admin page.
+  if (!isAuthenticated() || !isAdmin()) {
+    window.location.href = redirectTo;
+  }
 }
 
 function setAuthToken(token) {
@@ -44,7 +90,12 @@ function initAuthNav() {
   if (!authLink) return;
 
   if (isAuthenticated()) {
-    authLink.innerHTML = `<button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
+    // Show Admin link only for users with Admin role
+    if (isAdmin()) {
+      authLink.innerHTML = `<a href="admin.html" class="btn btn-outline-light me-2">Admin</a><button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
+    } else {
+      authLink.innerHTML = `<button class="btn btn-outline-light" onclick="logout()">Logout</button>`;
+    }
   } else {
     authLink.innerHTML = `<a href="login.html" class="btn btn-outline-light">Login</a>`;
   }

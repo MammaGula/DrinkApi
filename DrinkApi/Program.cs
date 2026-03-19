@@ -3,6 +3,9 @@ using DrinkApi.Middleware;
 using DrinkApi.Services;
 using DrinkApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,34 @@ builder.Services.AddIdentity<Microsoft.AspNetCore.Identity.IdentityUser, Microso
 })
     .AddEntityFrameworkStores<AppDbContext>();
 
+// Add authentication using JWT bearer so frontend SPA can use tokens
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            // Ensure role claims from the token are mapped correctly to ASP.NET Core's role system
+            RoleClaimType = System.Security.Claims.ClaimTypes.Role,
+            NameClaimType = System.Security.Claims.ClaimTypes.NameIdentifier,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? ""))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 // Repository Layer
 builder.Services.AddScoped<IDrinkRepository, DrinkRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -37,12 +68,21 @@ builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 // CORS: Cross Origin Resource Sharing
+// In development allow the frontend origin and credentials so cookie auth works from SPA
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder => builder.AllowAnyOrigin()
+    options.AddPolicy("LocalFrontend",
+        policy => policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+});
+
+// Configure cookie settings for Identity so SameSite is suitable for local dev if frontend served from a different origin
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 });
 
 var app = builder.Build();
@@ -70,7 +110,7 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 // app.UseHttpsRedirection();
 
 // CORS
-app.UseCors("AllowAll");
+app.UseCors("LocalFrontend");
 
 // Authentication/Authorization
 app.UseAuthentication();
