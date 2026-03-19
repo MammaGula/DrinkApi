@@ -1,16 +1,16 @@
-using DrinkApi.Data;
+using DrinkApi.Data.Interfaces;
 using DrinkApi.DTOs;
 using DrinkApi.Models;
 using DrinkApi.Services.Interfaces;
 
 namespace DrinkApi.Services;
 
-public class OrderService : IOrderService
+public class OrderService : DrinkApi.Services.IOrderService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IDrinkService _drinkService;
+    private readonly DrinkApi.Services.Interfaces.IDrinkService _drinkService;
 
-    public OrderService(IOrderRepository orderRepository, IDrinkService drinkService)
+    public OrderService(IOrderRepository orderRepository, DrinkApi.Services.Interfaces.IDrinkService drinkService)
     {
         _orderRepository = orderRepository;
         _drinkService = drinkService;

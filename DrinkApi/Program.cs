@@ -60,12 +60,12 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // Repository Layer
-builder.Services.AddScoped<IDrinkRepository, DrinkRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<DrinkApi.Data.Interfaces.IDrinkRepository, DrinkApi.Data.DrinkRepository>();
+builder.Services.AddScoped<DrinkApi.Data.Interfaces.IOrderRepository, DrinkApi.Data.OrderRepository>();
 
 // Service Layer
-builder.Services.AddScoped<IDrinkService, DrinkService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<DrinkApi.Services.Interfaces.IDrinkService, DrinkApi.Services.DrinkService>();
+builder.Services.AddScoped<DrinkApi.Services.IOrderService, DrinkApi.Services.OrderService>();
 
 // CORS: Cross Origin Resource Sharing
 // In development allow the frontend origin and credentials so cookie auth works from SPA

@@ -1,7 +1,6 @@
-﻿// This file is kept for compatibility. Use DrinkApi.Services.Interfaces.IDrinkService
 using DrinkApi.DTOs;
 
-namespace DrinkApi.Services;
+namespace DrinkApi.Services.Interfaces;
 
 public interface IDrinkService
 {
@@ -9,6 +8,5 @@ public interface IDrinkService
     Task<DrinkReadDto?> GetById(int id);
     Task<DrinkReadDto> Create(DrinkCreateDto dto);
     Task<bool> Update(int id, DrinkUpdateDto dto);
-    Task<bool> Delete(int id); //no need for DTO on delete
-
+    Task<bool> Delete(int id);
 }

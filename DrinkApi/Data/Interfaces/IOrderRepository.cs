@@ -1,6 +1,6 @@
 using DrinkApi.Models;
 
-namespace DrinkApi.Data;
+namespace DrinkApi.Data.Interfaces;
 
 public interface IOrderRepository
 {

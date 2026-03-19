@@ -1,11 +1,11 @@
-﻿using DrinkApi.Data;
+﻿using DrinkApi.Data.Interfaces;
 using DrinkApi.DTOs;
 using DrinkApi.Models;
 using DrinkApi.Services.Interfaces;
 
 namespace DrinkApi.Services;
 
-public class DrinkService : IDrinkService
+public class DrinkService : DrinkApi.Services.Interfaces.IDrinkService
 {
     private readonly IDrinkRepository _repository;
 

@@ -1,7 +1,6 @@
-// This file is kept for compatibility. Use DrinkApi.Services.Interfaces.IOrderService
 using DrinkApi.DTOs;
 
-namespace DrinkApi.Services;
+namespace DrinkApi.Services.Interfaces;
 
 public interface IOrderService
 {

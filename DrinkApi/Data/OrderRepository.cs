@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using DrinkApi.Models;
+using DrinkApi.Data.Interfaces;
 
 namespace DrinkApi.Data;
 
-public class OrderRepository : IOrderRepository
+public class OrderRepository : DrinkApi.Data.Interfaces.IOrderRepository
 {
     private readonly AppDbContext _context;
 
