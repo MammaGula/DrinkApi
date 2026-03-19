@@ -8,10 +8,12 @@ namespace DrinkApi.Services;
 public class DrinkService : IDrinkService
 {
     private readonly IDrinkRepository _repository;
+    private readonly DrinkApi.Data.Interfaces.IUnitOfWork _unitOfWork;
 
-    public DrinkService(IDrinkRepository repository)
+    public DrinkService(IDrinkRepository repository, DrinkApi.Data.Interfaces.IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<List<DrinkReadDto>> GetAll()
@@ -56,6 +58,7 @@ public class DrinkService : IDrinkService
         };
 
         await _repository.Add(drink);
+        await _unitOfWork.SaveChangesAsync();
 
         return new DrinkReadDto
         {
@@ -78,7 +81,10 @@ public class DrinkService : IDrinkService
         drink.Sweetness = dto.Sweetness;
         drink.Price = dto.Price;
 
-        return await _repository.Update(drink);
+        var ok = await _repository.Update(drink);
+        if (!ok) return false;
+        await _unitOfWork.SaveChangesAsync();
+        return true;
     }
 
     public async Task<bool> Delete(int id)
@@ -86,7 +92,10 @@ public class DrinkService : IDrinkService
         if (id <= 0)
             return false;
 
-        return await _repository.Delete(id);
+        var ok = await _repository.Delete(id);
+        if (!ok) return false;
+        await _unitOfWork.SaveChangesAsync();
+        return true;
     }
 }
 

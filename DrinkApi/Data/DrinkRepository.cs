@@ -22,7 +22,7 @@ public class DrinkRepository : DrinkApi.Data.Interfaces.IDrinkRepository
     public async Task Add(Drink drink)
     {
         _context.Drinks.Add(drink);
-        await _context.SaveChangesAsync(); // EF Core will generate Id to drink
+        // Do not commit here. UnitOfWork/Service will call SaveChangesAsync.
     }
 
     public async Task<bool> Update(Drink drink)
@@ -32,7 +32,7 @@ public class DrinkRepository : DrinkApi.Data.Interfaces.IDrinkRepository
             return false;
 
         _context.Drinks.Update(drink);
-        await _context.SaveChangesAsync();
+        // Do not commit here. UnitOfWork/Service will call SaveChangesAsync.
         return true;
     }
 
@@ -42,7 +42,7 @@ public class DrinkRepository : DrinkApi.Data.Interfaces.IDrinkRepository
         if (drink == null) return false;
 
         _context.Drinks.Remove(drink);
-        await _context.SaveChangesAsync();
+        // Do not commit here. UnitOfWork/Service will call SaveChangesAsync.
         return true;
     }
 }

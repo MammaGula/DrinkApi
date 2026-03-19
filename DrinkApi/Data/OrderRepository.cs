@@ -22,6 +22,6 @@ public class OrderRepository : DrinkApi.Data.Interfaces.IOrderRepository
     public async Task Add(Order order)
     {
         _context.Orders.Add(order);
-        await _context.SaveChangesAsync();
+        // Do not commit here. UnitOfWork/Service will call SaveChangesAsync.
     }
 }

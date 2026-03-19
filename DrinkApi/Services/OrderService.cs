@@ -9,11 +9,13 @@ public class OrderService : IOrderService
 {
     private readonly IOrderRepository _orderRepository;
     private readonly IDrinkService _drinkService;
+    private readonly DrinkApi.Data.Interfaces.IUnitOfWork _unitOfWork;
 
-    public OrderService(IOrderRepository orderRepository, IDrinkService drinkService)
+    public OrderService(IOrderRepository orderRepository, IDrinkService drinkService, DrinkApi.Data.Interfaces.IUnitOfWork unitOfWork)
     {
         _orderRepository = orderRepository;
         _drinkService = drinkService;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<List<OrderResponseDto>> GetAll()
@@ -68,6 +70,7 @@ public class OrderService : IOrderService
         };
 
         await _orderRepository.Add(order);
+        await _unitOfWork.SaveChangesAsync();
 
         return new OrderResponseDto
         {
