@@ -26,6 +26,13 @@ namespace DrinkApi.Data
                 .Property(o => o.TotalPrice)
                 .HasPrecision(10, 2);
 
+            // Configure relationship between Order and Drink
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Drink)
+                .WithMany()
+                .HasForeignKey(o => o.DrinkId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Drink>().HasData(
                 new Drink { Id = 1, Name = "Latte", Type = "Coffee", Sweetness = 5, Price = 39.00m },
                 new Drink { Id = 2, Name = "Green Tea", Type = "Tea", Sweetness = 2, Price = 29.00m },
