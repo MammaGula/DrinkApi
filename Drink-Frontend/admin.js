@@ -24,7 +24,7 @@ async function loadMenu() {
   setMenuStatus("", "mt-2");
 
   try {
-    const response = await fetch(drinksApiUrl);
+    const response = await fetchWithAuth(drinksApiUrl);
 
     if (!response.ok) {
       menuList.innerHTML = '<p class="text-danger">Error loading menu.</p>';
@@ -111,7 +111,7 @@ async function loadOrders() {
   ordersList.innerHTML = '<p class="text-light">Loading orders...</p>';
 
   try {
-    const response = await fetch(ordersApiUrl);
+    const response = await fetchWithAuth(ordersApiUrl);
 
     if (!response.ok) {
       ordersList.innerHTML = '<p class="text-danger">Error loading orders.</p>';
@@ -195,7 +195,7 @@ async function updateDrink(id) {
   setRowStatus(id, "Saving...", "text-light");
 
   try {
-    const response = await fetch(`${drinksApiUrl}/${id}`, {
+    const response = await fetchWithAuth(`${drinksApiUrl}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -222,7 +222,7 @@ async function deleteDrink(id) {
   setRowStatus(id, "Deleting...", "text-light");
 
   try {
-    const response = await fetch(`${drinksApiUrl}/${id}`, {
+    const response = await fetchWithAuth(`${drinksApiUrl}/${id}`, {
       method: "DELETE",
     });
 
@@ -268,7 +268,7 @@ async function addDrink() {
   };
 
   try {
-    const response = await fetch(drinksApiUrl, {
+    const response = await fetchWithAuth(drinksApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -313,6 +313,11 @@ function stopOrdersPolling() {
 
 // Start loading data and polling when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
+  // Redirect to login if there is no auth token
+  if (typeof ensureAuthenticated === "function") {
+    ensureAuthenticated();
+  }
+
   loadMenu();
   loadOrders();
   startOrdersPolling(5000);

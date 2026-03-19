@@ -18,7 +18,7 @@ async function sendOrder() {
   };
 
   try {
-    const response = await fetch(ordersApiUrl, {
+    const response = await fetchWithAuth(ordersApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
