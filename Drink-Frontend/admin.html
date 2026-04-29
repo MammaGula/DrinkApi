@@ -21,7 +21,7 @@
       <div class="text-center mb-4">
         <a href="about.html" class="btn btn-outline-light me-2">About</a>
         <a href="index.html" class="btn btn-outline-light me-2">Drink List</a>
-        <a href="order.html" class="btn btn-outline-light me-2">Place Order</a>
+        <a href="cart.html" class="btn btn-outline-light me-2">Basket</a>
         <a href="admin.html" class="btn btn-outline-light me-2">Admin</a>
         <span id="authLink"></span>
       </div>
@@ -31,14 +31,16 @@
         class="card p-4 shadow-sm mb-4"
         style="background-color: rgba(5, 39, 13, 0.6)"
       >
-        <h3 class="mb-3">Admin Panel</h3>
+        <h3 class="mb-3 text-center">Admin Panel</h3>
 
         <!-- Manage Menu Section -->
-        <div class="mb-4">
+        <div class="mb-4 text-center">
           <h4 class="text-light">Manage Menu</h4>
-          <button class="btn btn-primary" onclick="loadMenu()">
-            Load Menu
-          </button>
+          <div class="mb-2 d-flex justify-content-center">
+            <button class="btn btn-primary" onclick="loadMenu()">
+              Refresh Menu
+            </button>
+          </div>
           <div id="menuList" class="mt-3"></div>
           <p id="menuStatus" class="mt-2"></p>
         </div>
@@ -47,7 +49,7 @@
         <div class="mb-4">
           <h4 class="text-light">View Orders</h4>
           <button class="btn btn-primary" onclick="loadOrders()">
-            Load All Orders
+            Refresh Orders
           </button>
           <div id="ordersList" class="mt-3"></div>
         </div>

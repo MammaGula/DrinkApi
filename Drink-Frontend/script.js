@@ -27,7 +27,7 @@ async function loadDrinks() {
 
       item.innerHTML = `
                 <div>
-                    <strong>${drink.name}</strong>
+                    <a href="drink.html?id=${drink.id}" class="text-dark text-decoration-none"><strong>${drink.name}</strong></a>
                 </div>
                 <span class="badge bg-success rounded-pill">${drink.price} kr</span>
             `;

@@ -20,6 +20,9 @@ async function loadMenu() {
   const menuList = document.getElementById("menuList");
   if (!menuList) return;
 
+  // Ensure menu area is visible when we load/refresh
+  menuList.style.display = "";
+
   menuList.innerHTML = '<p class="text-light">Loading menu...</p>';
   setMenuStatus("", "mt-2");
 
@@ -86,12 +89,10 @@ async function loadMenu() {
           />
         </td>
         <td>
-          <button class="btn btn-sm btn-success me-2" onclick="updateDrink(${drink.id})">
-            Update
-          </button>
-          <button class="btn btn-sm btn-danger" onclick="deleteDrink(${drink.id})">
-            Delete
-          </button>
+          <div class="d-flex gap-2 justify-content-center">
+            <button class="btn btn-sm btn-success" onclick="updateDrink(${drink.id})">Update</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteDrink(${drink.id})">Delete</button>
+          </div>
         </td>
         <td><span id="menu-status-${drink.id}"></span></td>
       </tr>`;
@@ -115,7 +116,7 @@ async function loadOrders() {
 
     if (!response.ok) {
       const text = await response.text();
-      console.error('Load orders failed:', response.status, text);
+      console.error("Load orders failed:", response.status, text);
       ordersList.innerHTML = `<p class="text-danger">Error loading orders: ${text || response.statusText}</p>`;
       return;
     }
@@ -280,7 +281,9 @@ async function addDrink() {
 
     const text = await response.text();
     let data = null;
-    try { data = JSON.parse(text); } catch {}
+    try {
+      data = JSON.parse(text);
+    } catch {}
 
     if (response.ok) {
       statusElement.textContent = "Drink added successfully!";
@@ -294,8 +297,9 @@ async function addDrink() {
 
       await loadMenu();
     } else {
-      console.error('Add drink failed:', response.status, text);
-      const message = data?.message ?? data?.error ?? text ?? response.statusText;
+      console.error("Add drink failed:", response.status, text);
+      const message =
+        data?.message ?? data?.error ?? text ?? response.statusText;
       statusElement.textContent = `Error adding drink: ${message}`;
       statusElement.className = "mt-3 text-danger";
     }
