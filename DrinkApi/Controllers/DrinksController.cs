@@ -20,7 +20,7 @@ public class DrinksController : ControllerBase
     }
 
 
-
+ // 1. Retrieve all drinks from the service and return them to the caller: Everyone can see the menu
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -29,6 +29,7 @@ public class DrinksController : ControllerBase
 
 
 
+    // 2. Retrieve a single drink by its ID: Everyone can see the menu
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(int id)
     {
@@ -39,10 +40,12 @@ public class DrinksController : ControllerBase
 
 
 
+    // 3. Create a new drink: Only Admin can perform this action
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(DrinkCreateDto dto)
     {
+        // Validate the incoming request body against the model's data annotations
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
@@ -57,7 +60,7 @@ public class DrinksController : ControllerBase
     }
 
 
-
+    // 4. Update an existing drink: Only Admin can perform this action
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id, DrinkUpdateDto dto)
@@ -72,6 +75,7 @@ public class DrinksController : ControllerBase
 
 
 
+    // 5. Delete a drink by its ID: Only Admin can perform this action
     [HttpDelete("{id:int:min(1)}")] // with constraint to ensure id is a positive integer   
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)

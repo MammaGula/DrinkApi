@@ -17,6 +17,10 @@ public class AuthController : ControllerBase
     private readonly ILogger<AuthController> _logger;
     private readonly IConfiguration _configuration;
 
+// Dependencies constructor injection
+// - UserManager<IdentityUser> : Service for managing user accounts (CRUD, password, roles, etc.)
+// - ILogger<AuthController> : Logging service for recording information, warnings, and errors
+// - IConfiguration : Service for accessing application configuration settings
     public AuthController(UserManager<IdentityUser> userManager, ILogger<AuthController> logger, IConfiguration configuration)
     {
         _userManager = userManager;
@@ -30,14 +34,17 @@ public class AuthController : ControllerBase
         public string? Password { get; set; }
     }
 
+// 1. Login with email and password, return JWT if successful
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
+        // If email or password is missing, return a bad request response(400)
         if (request == null || string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
         {
             return BadRequest(new { error = "Missing credentials" });
         }
 
+        // Find the user by email in the identity store
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
@@ -46,13 +53,14 @@ public class AuthController : ControllerBase
         }
 
         var check = await _userManager.CheckPasswordAsync(user, request.Password);
+        // If the password is incorrect, return an unauthorized response (401)
         if (!check)
         {
             _logger.LogInformation("Invalid password for {Email}", request.Email);
             return Unauthorized(new { error = "Invalid credentials" });
         }
 
-        // Create JWT
+        // Create JWT Token
         var key = _configuration["Jwt:Key"];
         var issuer = _configuration["Jwt:Issuer"];
         var audience = _configuration["Jwt:Audience"];

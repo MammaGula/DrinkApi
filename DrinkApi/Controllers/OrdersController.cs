@@ -17,6 +17,7 @@ public class OrdersController : ControllerBase
         _orderService = orderService;
     }
 
+    // 1. Retrieve all orders: Only Admin can perform this action
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll()
@@ -25,6 +26,7 @@ public class OrdersController : ControllerBase
         return Ok(orders);
     }
 
+    // 2. Retrieve a single order by its ID: Only Admin can perform this action
     [HttpGet("{id:guid}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetOne(Guid id)
@@ -34,8 +36,9 @@ public class OrdersController : ControllerBase
         return Ok(order);
     }
 
+
+    // 3. Create a new order: Any user can perform this action
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> CreateOrder([FromBody] OrderRequestDto order)
     {
         var created = await _orderService.Create(order);
