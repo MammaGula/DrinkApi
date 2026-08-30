@@ -2,6 +2,7 @@
 
 namespace DrinkApi.DTOs
 {
+    // For Admin to edit/update drink details
     public class DrinkUpdateDto
     {
         [Required]

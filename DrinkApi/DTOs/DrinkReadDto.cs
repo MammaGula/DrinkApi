@@ -1,5 +1,6 @@
 ﻿namespace DrinkApi.DTOs
 {
+    // For showing drink menu/details in read operations
     public class DrinkReadDto
     {
         public int Id { get; set; }
