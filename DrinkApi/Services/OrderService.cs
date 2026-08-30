@@ -18,6 +18,7 @@ public class OrderService : IOrderService
         _unitOfWork = unitOfWork;
     }
 
+// 1. Fetch all orders from the repository and map them to OrderResponseDto objects for returning to the caller
     public async Task<List<OrderResponseDto>> GetAll()
     {
         var orders = await _orderRepository.GetAll();
@@ -32,6 +33,7 @@ public class OrderService : IOrderService
         }).ToList();
     }
 
+    // 2. Fetch a single order by its ID and map it to an OrderResponseDto object for returning to the caller
     public async Task<OrderResponseDto?> GetById(Guid id)
     {
         var order = await _orderRepository.GetById(id);
@@ -48,6 +50,7 @@ public class OrderService : IOrderService
         };
     }
 
+    // 3. Create a new order in the repository and return the created order as an OrderResponseDto
     public async Task<OrderResponseDto?> Create(OrderRequestDto dto)
     {
         if (dto == null) throw new ArgumentNullException(nameof(dto));

@@ -16,3 +16,7 @@ public class UnitOfWork : IUnitOfWork
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         => _context.SaveChangesAsync(cancellationToken);
 }
+
+// DrinkRepository.Add/Update/Delete → just marks the entity as Added/Modified/Removed in the DbContext (nothing is written to the DB yet)
+
+// DrinkService (the caller) → calls the repository method, then calls _unitOfWork.SaveChangesAsync() itself, e.g. in DrinkService.cs:60-61:

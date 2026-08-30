@@ -16,6 +16,7 @@ public class DrinkService : IDrinkService
         _unitOfWork = unitOfWork;
     }
 
+// 1. Fetch all drinks from the repository and map them to DrinkReadDto objects for returning to the caller
     public async Task<List<DrinkReadDto>> GetAll()
     {
         var drinks = await _repository.GetAll();
@@ -29,6 +30,7 @@ public class DrinkService : IDrinkService
         }).ToList();
     }
 
+    // 2. Fetch a single drink by its ID and map it to a DrinkReadDto object for returning to the caller
     public async Task<DrinkReadDto?> GetById(int id)
     {
         var drink = await _repository.GetById(id);
@@ -44,6 +46,7 @@ public class DrinkService : IDrinkService
         };
     }
 
+    // 3. Create a new drink in the repository and return the created drink as a DrinkReadDto
     public async Task<DrinkReadDto> Create(DrinkCreateDto dto)
     {
         if (dto == null)
@@ -70,6 +73,7 @@ public class DrinkService : IDrinkService
         };
     }
 
+    // 4. Update an existing drink by its ID with the provided DrinkUpdateDto, return true if successful
     public async Task<bool> Update(int id, DrinkUpdateDto dto)
     {
         var drink = await _repository.GetById(id);
@@ -87,6 +91,7 @@ public class DrinkService : IDrinkService
         return true;
     }
 
+    // 5. Delete a drink by its ID, return true if successful
     public async Task<bool> Delete(int id)
     {
         if (id <= 0)
