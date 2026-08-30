@@ -1,6 +1,9 @@
+// Script for managing the drink list on the frontend
+
+// URL for the drinks API on the backend
 const drinksApiUrl = "http://localhost:5211/api/Drinks";
 
-// Load drinks from backend
+// Load drinks from backend: Click the button to toggle the drink list
 async function loadDrinks() {
   const list = document.getElementById("drinkList");
 
@@ -10,6 +13,7 @@ async function loadDrinks() {
     return;
   }
 
+  // Fetch and display the drinks from the backend
   try {
     const response = await fetch(drinksApiUrl);
 
@@ -18,8 +22,10 @@ async function loadDrinks() {
       return;
     }
 
+    // If the response is okay, parse it as JSON
     const drinks = await response.json();
 
+    // Loop through each drink and create a list item for it
     drinks.forEach((drink) => {
       const item = document.createElement("li");
       item.className =
