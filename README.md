@@ -10,6 +10,24 @@ Along the way, I used AI to guide me, explain the code, and help plan the next s
 
 Then one day the idea clicked: why not turn it into a full application with a real UI? That turned out to be one of the most interesting and rewarding parts of the whole journey — and this little practice project ended up becoming one of my favorite things I've built.
 
+## Screenshots
+
+| Home | Menu |
+|---|---|
+| ![Home page](Drink-Frontend/images/screenshots/home.png) | ![Drink menu](Drink-Frontend/images/screenshots/Menu.png) |
+
+| Cart | Order |
+|---|---|
+| ![Cart](Drink-Frontend/images/screenshots/Cart.png) | ![Order](Drink-Frontend/images/screenshots/Order.png) |
+
+| Login | Admin |
+|---|---|
+| ![Login](Drink-Frontend/images/screenshots/Login.png) | ![Admin dashboard](Drink-Frontend/images/screenshots/Admin1.png) |
+
+| Admin (menu management) |
+|---|
+| ![Admin menu management](Drink-Frontend/images/screenshots/Admin2.png) |
+
 ## Tech stack
 
 **Backend**
