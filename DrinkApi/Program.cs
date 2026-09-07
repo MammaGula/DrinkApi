@@ -1,11 +1,12 @@
 using DrinkApi.Data;
+using DrinkApi.Extensions;
 using DrinkApi.Middleware;
 using DrinkApi.Services;
 using DrinkApi.Services.Interfaces;
-using DrinkApi.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,8 @@ builder.Services.AddIdentity<Microsoft.AspNetCore.Identity.IdentityUser, Microso
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 6;
 })
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders();
 
 // Add authentication using JWT bearer so frontend SPA can use tokens
 builder.Services.AddAuthentication(options =>
@@ -120,3 +122,4 @@ app.Run();
 
 
 
+// Swaggerer UI is available at http://localhost:5211/swagger/index.html
