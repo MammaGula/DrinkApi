@@ -68,13 +68,10 @@ builder.Services.AddAuthorization();
 
 // CORS: Cross Origin Resource Sharing
 // In development allow the frontend origin and credentials so cookie auth works from SPA
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("LocalFrontend",
-        policy => policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+    options.AddPolicy("LocalFrontend", policy => policy.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 });
 
 // Configure cookie settings for Identity so SameSite is suitable for local dev if frontend served from a different origin
