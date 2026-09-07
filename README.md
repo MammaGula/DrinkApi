@@ -127,3 +127,8 @@ Full request/response schemas are available in Swagger once the backend is runni
 ## Status
 
 This is a personal learning project. It's paused while the author works on another project, and development will resume later.
+## 👨‍💻 Developer
+
+**Supaphit** — Newton Yrkeshögskola, SYSM9, VT26
+
+
